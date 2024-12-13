@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:EjercicioCRUDMvvm.ViewModels"
+             x:Class="EjercicioCRUDMvvm.Views.ProveedorPage"
+             Title="Gestión de Proveedores">
+
+    <!-- Vincular el ViewModel -->
+    <ContentPage.BindingContext>
+        <vm:ProveedorViewModel />
+    </ContentPage.BindingContext>
+
+    <ScrollView>
+        <StackLayout Padding="20">
+            <!-- Formulario para los datos del proveedor -->
+            <Label Text="Nombre:" />
+            <Entry Placeholder="Nombre" Text="{Binding NuevoProveedor.Nombre}" />
+
+            <Label Text="Dirección:" />
+            <Entry Placeholder="Dirección" Text="{Binding NuevoProveedor.Direccion}" />
+
+            <Label Text="Teléfono:" />
+            <Entry Placeholder="Teléfono" Text="{Binding NuevoProveedor.Telefono}" Keyboard="Telephone" />
+
+            <Label Text="Correo:" />
+            <Entry Placeholder="Correo" Text="{Binding NuevoProveedor.Correo}" Keyboard="Email" />
+
+            <Label Text="Razón Social:" />
+            <Entry Placeholder="Razón Social" Text="{Binding NuevoProveedor.RazonSocial}" />
+
+            <!-- Botón para guardar -->
+            <Button Text="Guardar" Command="{Binding GuardarCommand}" />
+
+            <!-- Lista de proveedores -->
+            <Label Text="Lista de Proveedores:" FontSize="Medium" Margin="0,20,0,5" />
+            <CollectionView ItemsSource="{Binding Proveedores}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout Orientation="Horizontal" Margin="0,5,0,5">
+                            <Label Text="{Binding Nombre}" VerticalOptions="Center" />
+                            <Button Text="Eliminar" 
+                                    Command="{Binding BindingContext.EliminarCommand, Source={RelativeSource AncestorType={x:Type ContentPage}}}" 
+                                    CommandParameter="{Binding}" />
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>
